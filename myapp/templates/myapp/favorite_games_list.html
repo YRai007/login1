@@ -1,0 +1,41 @@
+{% extends 'myapp/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}My Favorite Games{% endblock %}
+
+{% block body %}
+<h2 class="text-info mb-4"><i class="bi bi-controller"></i> Favorite Games</h2>
+
+<div class="d-flex justify-content-end mb-3">
+    <a href="{% url 'favorite_game_create' %}" class="btn btn-outline-success">
+        <i class="bi bi-plus-lg"></i> Add Game
+    </a>
+</div>
+
+{% if games %}
+    <ul class="list-group list-group-flush">
+        {% for game in games %}
+            <li class="list-group-item bg-dark text-white border-info d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-1 text-info">{{ game.title }}</h5>
+                    <small>By: {{ game.created_by }}</small>
+                    <br>
+                    <small class="text-muted">Genre: {{ game.genre }}</small>
+                </div>
+                <div>
+                    <a href="{% url 'favorite_game_update' game.pk %}" class="btn btn-sm btn-outline-primary me-2">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a href="{% url 'favorite_game_delete' game.pk %}" class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div class="alert alert-secondary text-center text-white bg-dark border-info">
+        <i class="bi bi-info-circle"></i> No favorite games added yet.
+    </div>
+{% endif %}
+{% endblock %}

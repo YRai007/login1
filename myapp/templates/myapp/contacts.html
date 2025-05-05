@@ -1,0 +1,83 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}Contact | GameVerse{% endblock %}
+
+{% block body %}
+
+<style>
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+    h2, label {
+        color: #e0e0e0;
+    }
+    .form-control {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+        border: 1px solid #444;
+    }
+    .form-control:focus {
+        background-color: #1e1e1e;
+        color: #fff;
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+    .form-text, .invalid-feedback {
+        color: #ff6b6b;
+    }
+    .bg-dark-transparent {
+        background-color: rgba(0, 0, 0, 0.75);
+    }
+</style>
+
+<!-- Contact Page Hero / Carousel -->
+<div class="container mt-4">
+    <div id="contactCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner rounded">
+            <div class="carousel-item active">
+                <img src="{% static 'myapp/images/contact.jpg' %}" class="d-block w-100" alt="Contact Us Banner" style="height: 400px; object-fit: cover;">
+                <div class="carousel-caption d-none d-md-block bg-dark-transparent rounded p-3">
+                    <h2 class="fw-bold text-light">Need Help?</h2>
+                    <p class="lead text-light">We’re here to assist you with your gaming needs!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Form Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4 fw-bold">Send Us a Message</h2>
+
+    <form action="{% url 'contacts' %}" method="POST" class="shadow p-4 rounded" style="background-color: #1e1e1e;">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.message.label_tag }}
+            {{ form.message }}
+            {{ form.message.errors }}
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary px-5">Submit</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🎮 Gaming Newsletter Subscription</title>
+    <style>
+        body {
+            background-color: #0d0d1a;
+            color: #e0e0e0;
+            font-family: 'Verdana', sans-serif;
+            text-align: center;
+            padding: 30px;
+        }
+        form {
+            background-color: #1f1f2e;
+            padding: 25px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        input, button {
+            padding: 12px;
+            margin: 10px;
+            border-radius: 8px;
+            width: 250px;
+        }
+        .success {
+            color: #00ff99;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .subscriber-list {
+            background-color: #141428;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Subscribe to Our Gaming Newsletter!</h1>
+    <p>Get the latest news, tournaments, and tips straight to your inbox.</p>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Subscribe</button>
+    </form>
+
+    {% if success %}
+        <div class="success">Thank you for subscribing, gamer! 🎉</div>
+    {% endif %}
+
+    {% if subscribers %}
+        <div class="subscriber-list">
+            <h2>📜 Current Subscribers</h2>
+            <ul>
+                {% for s in subscribers %}
+                    <li>{{ s.gamer_tag }} - {{ s.email }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</body>
+</html>

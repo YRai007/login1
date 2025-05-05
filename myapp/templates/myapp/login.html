@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login – GameVerse</title>
+
+    <!-- Google font for a sleek look -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --primary-dark:rgb(0, 102, 255);
+            --card-bg: #1f1f1fdd; /* Dark glass */
+            --error: #ff4d4f;
+            --text-light: #f0f0f0;
+            --input-bg: #2c2c2c;
+            --input-border: #444;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+        }
+
+        body {
+            background: url("{% static 'myapp/images/bl1.png' %}") center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            color: var(--text-light);
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            background: var(--card-bg);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+
+        h1 {
+            margin: 0 0 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: block;
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        input {
+            width: 100%;
+            padding: 0.65rem 0.8rem;
+            margin-top: 0.35rem;
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: var(--input-bg);
+            color: var(--text-light);
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        button {
+            margin-top: 1.8rem;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            background: var(--primary);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s background;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+        }
+
+        .error {
+            color: var(--error);
+            margin-top: -0.5rem;
+            margin-bottom: 0.75rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @media(max-width: 480px) {
+            .card {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="card">
+        <h1>GameVerse</h1>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" required autofocus>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </section>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends 'myapp/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}{% if form.instance.pk %}Edit Game{% else %}Add Game{% endif %}{% endblock %}
+
+{% block body %}
+<h2 class="text-primary mb-4">
+    {% if form.instance.pk %}
+        <i class="bi bi-pencil"></i> Edit Game
+    {% else %}
+        <i class="bi bi-plus-circle"></i> Add Game
+    {% endif %}
+</h2>
+
+<div class="card bg-dark text-white border-info shadow p-4">
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Title</label>
+            {{ form.title|add_class:"form-control bg-black text-info border-info glow-field" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_genre" class="form-label">Genre</label>
+            {{ form.genre|add_class:"form-control bg-black text-info border-info glow-field" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Description</label>
+            {{ form.description|add_class:"form-control bg-black text-info border-info glow-field" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_created_by" class="form-label">By</label>
+            {{ form.created_by|add_class:"form-control bg-black text-info border-info glow-field" }}
+        </div>
+
+        <div class="mt-3 d-flex justify-content-between">
+            <button type="submit" class="btn btn-info text-dark">
+                <i class="bi bi-check-circle"></i> Save
+            </button>
+            <a href="{% url 'favorite_games_list' %}" class="btn btn-outline-light">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .glow-field:focus {
+        outline: none;
+        box-shadow: 0 0 10px #0dcaf0, 0 0 20px #0dcaf0;
+    }
+</style>
+{% endblock %}
